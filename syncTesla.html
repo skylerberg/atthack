@@ -1,3 +1,15 @@
 <ons-page class="center">
-    <h1>Sync Your Vehicle</h1>
+    <div>
+    	<h1>Sober key to your car</h1>
+	</div>
+	<form novalidate ng-show="!isConnected">
+		<input type="text" name="username" ng-model="username">
+		<input type="password" name="password" ng-model="password">
+		<p></p>
+		<ons-button ng-click="findMyCar()">search</ons-button>
+	</form>
+	<span id="error-msg"></span>
+	<ons-list ng-show="isConnected">
+        <ons-list-item class="topcoat-list__item__line-height" ng-repeat="car in cars" ng-click="pickMyCar(car)">{{ car.vehicle_id }}</ons-list-item>
+    </ons-list>
 </ons-page>
