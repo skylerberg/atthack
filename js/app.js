@@ -15,10 +15,10 @@
 
     app.config(function($routeProvider){
         $routeProvider.when('/contact', {
-            templateUrl: 'contactSetup.html',
+            templateUrl: 'contact.html',
             controller: 'ContactCtrl',
         }).when('/sync', {
-            templateUrl: 'syncTesla.html',
+            templateUrl: 'sync.html',
             controller: 'SyncCtrl'
         }).when('/main', {
             templateUrl: 'main.html',
@@ -232,6 +232,6 @@
 
     });
     app.controller('ResultCtrl', function($scope, Data) {
-
+        $scope.phone = Data.contact.phone;
     });
 })();
