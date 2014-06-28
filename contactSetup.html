@@ -1,0 +1,14 @@
+<ons-page class="center">
+    <h1>E-Contact</h1>
+    <div ng-controller="ContactCtrl">
+        <form name="e-contact" novalidate>
+        	<input name="first_name" type="text" placeholder="First" class="topcoat-text-input" ng-model="contact.first">
+        	<input name="last_name" type="text" placeholder="Last" class="topcoat-text-input" ng-model="contact.last">
+        	<input name="phone" type="text" placeholder="(xxx) xxx-xxxx" class="topcoat-text-input" ng-model="contact.phone">
+        	<p></p>
+        	<ons-button 
+            ng-click="saveContact(contact)">
+            SAVE</ons-button>
+        </form>
+    </div>
+</ons-page>
