@@ -39,6 +39,7 @@
         Data.contact = {'first': null, 'last': null, 'phone': null};
         Data.car = {'vehicle_id': null, 'vin': null};
         var storage = window.localStorage;
+
         for (var key in Data.contact) {
             Data.contact[key] = storage.getItem(key) || '';
         }
@@ -148,8 +149,31 @@
         };
     });
 
-    app.controller('FlowController', function($scope, Data){
+    app.controller('FlowController', function($scope, Data, $location){
+        function isValid(obj){
+            for(var key in obj){
+                if(obj[key]==='' || obj[key]===null)
+                    return false;
+            }
+            return true;
+        }
 
+        view = 0;
+        if(isValid(Data.car))
+            view = 1;
+        if(isValid(Data.contact))
+            view = 2;
+        switch(view){
+            case 0:
+                $location.path('/sync');
+                break;
+            case 1:
+                $location.path('/contact');
+                break;
+            case 2:
+                $location.path('/main');
+                break;
+        }
     });
 
     app.controller('ContactCtrl', function($scope, Data, $location) {
