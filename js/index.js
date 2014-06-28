@@ -26,6 +26,9 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
+        $('#emergency-contact-form button[type=submit]').on('click', function(){
+            goTo('sync');
+        });
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
@@ -48,10 +51,6 @@ var app = {
     }
 };
 
-function isDrunk() {
-    alert("Don't drive.");
-};
-
-function isNotDrunk() {
-    alert("You are good to go.");
-};
+function goTo(page) {
+    window.location = page + '.html';
+}
