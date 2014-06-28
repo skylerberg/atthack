@@ -137,13 +137,17 @@
             */
             if (newState === "0") {
                 if(DummyRESTAPI.unlock()){
-                    console.log('state change from', newState, state);
                     state = newState;
+                    return true;
+                }else{
+                    return false;
                 }
             }else{
                 if(DummyRESTAPI.lock(newState === "2")){
-                    console.log('state change from', newState, state);
                     state = newState;
+                    return true;
+                }else{
+                    return false;
                 }
             }
         };
@@ -216,13 +220,18 @@
     app.controller('MainCtrl', function($scope, Data, LockService) {
         $scope.switch = function ($event) {
             var button = $event.target;
-            LockService.switchHanlder(button.getAttribute('data-state'));
+            if(LockService.switchHanlder(button.getAttribute('data-state'))){
+                [].forEach.call(document.querySelectorAll('button.active'), function (btn){
+                    btn.className = btn.className.replace('active', '');
+                });
+                button.className += ' active';
+            }
         };
     });
     app.controller('GameCtrl', function($scope, Data) {
 
     });
     app.controller('ResultCtrl', function($scope, Data) {
-        
+
     });
 })();
