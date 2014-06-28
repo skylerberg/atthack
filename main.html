@@ -1,3 +1,14 @@
 <ons-page class="center">
     <h1>Lock or Unlock Vehicle</h1>
+    <div class="topcoat-button-bar" style="width:280px">
+      <div class="topcoat-button-bar__item">
+        <button class="topcoat-button-bar__button state" data-state="1" ng-click="switch($event)">Lock</button>
+      </div>
+      <div class="topcoat-button-bar__item active">
+        <button class="topcoat-button-bar__button state" data-state="0" ng-click="switch($event)">Unlock</button>
+      </div>
+      <div class="topcoat-button-bar__item">
+        <button class="topcoat-button-bar__button state" data-state="2" ng-click="switch($event)">Hard Lock</button>
+      </div>
+    </div>
 </ons-page>

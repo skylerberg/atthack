@@ -36,15 +36,42 @@
 
     app.factory('Data', function() {
         var Data = {};
-        Data.contact = {'first': '', 'last': '', 'phone': ''};
+        Data.contact = {'first': null, 'last': null, 'phone': null};
+        Data.car = {'vehicle_id': null, 'vin': null};
         var storage = window.localStorage;
         for (var key in Data.contact) {
-            Data.contact[key] = window.localStorage.getItem(key) || '';
+            Data.contact[key] = storage.getItem(key) || '';
         }
+
+        for (var key in Data.car) {
+            Data.car[key] = storage.getItem(key) || '';
+        }
+
         return Data;
     });
 
-    app.service('DummyRESTAPI', function(){
+    app.service('TestService', function($location){
+        status_code = "0"; //[untriggered, triggered,  started, processing, passed, failed]
+        
+        this.isCleared = function(){
+            return (status_code === "0" || status_code === "4");
+        };
+
+        this.getStatusCode = function(){
+            return status_code;
+        };
+
+        this.setStatusCode = function(s_code){
+            status_code = s_code;
+        };
+
+        this.start = function(){
+            status_code = "1";
+            $location.path('/game');
+        };
+    });
+
+    app.service('DummyRESTAPI', function(TestService){
         isConnected = false;
 
         this.getLoginStatus = function(){
@@ -52,7 +79,6 @@
         };
 
         this.login = function(username, password){
-            console.log(password);
             if (username === 'sober' && password === 'drunk')
                 isConnected = true;
             else
@@ -74,9 +100,55 @@
                 }
             ];
         };
+
+        this.lock = function(hard){
+            if(hard)
+                TestService.setStatusCode("1");
+            return true;
+        };
+
+        this.unlock = function(){
+            if (TestService.isCleared()){
+                return true;
+            }
+            else{
+                TestService.start();
+                return false;
+            }
+        };
     });
 
-    app.controller('FlowController', function($scope){
+    app.service('LockService', function(DummyRESTAPI){
+        state = "0";
+
+        this.getCurrentState = function(){
+            return state;
+        };
+
+        this.setCurrentState = function(nState){
+            state = nState;
+        };
+
+        this.switchHanlder = function(newState){
+            /*
+                2 -> 0 or 1 -> 0 will unlock the car
+                0 -> 1 or 0 -> 2 will lock the car
+            */
+            if (newState === "0") {
+                if(DummyRESTAPI.unlock()){
+                    console.log('state change from', newState, state);
+                    state = newState;
+                }
+            }else{
+                if(DummyRESTAPI.lock(newState === "2")){
+                    console.log('state change from', newState, state);
+                    state = newState;
+                }
+            }
+        };
+    });
+
+    app.controller('FlowController', function($scope, Data){
 
     });
 
@@ -86,7 +158,6 @@
 
         $scope.saveContact = function(contact){
             Data.contact = angular.copy(contact);
-            var storage = window.localStorage;
             for (var key in contact) {
                 window.localStorage.setItem(key, contact[key]);
             }
@@ -110,13 +181,19 @@
         };
 
         $scope.pickMyCar = function(car){
-            window.localStorage.setItem('car', car.vehicle_id);
+            for (var key in car) {
+                window.localStorage.setItem(key, car[key]);
+            }
+            Data.car = angular.copy(car);
             $location.path('/contact');
         };
 
     });
-    app.controller('MainCtrl', function($scope, Data) {
-
+    app.controller('MainCtrl', function($scope, Data, LockService) {
+        $scope.switch = function ($event) {
+            var button = $event.target;
+            LockService.switchHanlder(button.getAttribute('data-state'));
+        };
     });
     app.controller('GameCtrl', function($scope, Data) {
 
