@@ -223,6 +223,6 @@
 
     });
     app.controller('ResultCtrl', function($scope, Data) {
-
+        
     });
 })();
