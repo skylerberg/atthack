@@ -260,12 +260,12 @@
 
   /* Button event handlers */
 
-  errorbutton.addEventListener('click', retry, false);
+  // errorbutton.addEventListener('click', retry, false);
   infobutton.addEventListener('click', showinfo, false);
   installbutton.addEventListener('click', install, false);
   reloadbutton.addEventListener('click', cancel, false);
   soundbutton.addEventListener('click', togglesound, false);
-  winbutton.addEventListener('click', winner, false);
+  // winbutton.addEventListener('click', winner, false);
   startbutton.addEventListener('click', start, false);
 
   /* Canvas event handlers */
@@ -277,9 +277,11 @@
   c.addEventListener('touchend', ontouchend, false);
   c.addEventListener('touchmove', ontouchmove, false);
 
-  window.addEventListener('load',init, false);
-  window.addEventListener('resize',init, false);
+  // window.addEventListener('load',init, false);
+  // window.addEventListener('resize',init, false);
+  window.addEventListener('game', init, false);
 
+  init();
   /* Cache update ready? Reload the page! */
   var cache = window.applicationCache;
   function refresh() {

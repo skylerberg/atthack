@@ -1,7 +1,6 @@
 <ons-page class="center">
- <script src="js/letterpaint.js"></script>
  
-<link rel="stylesheet" type="text/css" href="letterpaint.css">
+	<link rel="stylesheet" type="text/css" href="styles/letterpaint.css">
   <div id="container" class="container">
 
     <div id="chars" class="gamedata">OCDLS</div>
@@ -20,12 +19,12 @@
 
     <div id="win" class="cover check">
       <p>Good job!</p> 
-      <button class="actionbutton">➜</button>
+      <button class="actionbutton" onclick="(function(){var e = new Event('gameWin'); document.dispatchEvent(e);}())">➜</button>
     </div>
 
     <div id="error" class="cover">
       <p>You painted outside the letter! You're drunk!</p> 
-      <button class="actionbutton">➜</button>
+      <button class="actionbutton" onclick="(function(){var e = new Event('gameLose'); document.dispatchEvent(e);}())">➜</button>
     </div>
 
     <div id="info" class="cover infopanel">

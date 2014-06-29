@@ -228,8 +228,24 @@
             }
         };
     });
-    app.controller('GameCtrl', function($scope, Data) {
+    app.controller('GameCtrl', function($scope, Data, $location, LockService, TestService) {
+        var s = document.createElement('script');
+        s.src = "js/letterpaint.js";
+        document.body.appendChild(s);
+        var event = new Event('game');
+        document.dispatchEvent(event);
 
+        var win = function(){
+            TestService.setStatusCode("4");
+            LockService.switchHanlder("0");
+            window.location.href = "#/main";
+        };
+        document.addEventListener('gameWin', win, false);
+
+        var fail = function(){
+            window.location.href = "#/result";
+        };
+        document.addEventListener('gameLose', fail, false);
     });
     app.controller('ResultCtrl', function($scope, Data) {
         $scope.phone = Data.contact.phone;
