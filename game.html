@@ -1,3 +1,44 @@
 <ons-page class="center">
-    <h1>Test Begins...</h1>
+ <script src="js/letterpaint.js"></script>
+ 
+<link rel="stylesheet" type="text/css" href="letterpaint.css">
+  <div id="container" class="container">
+
+    <div id="chars" class="gamedata">OCDLS</div>
+
+    <canvas></canvas>
+
+    <div id="intro" class="cover">
+      <p>Paint over the letter!</p>
+      <p> Dont go outside of it!</p>
+      <button class="actionbutton">➜</button>
+    </div>
+
+    <button id="sound" class=""></button>
+
+    <button id="infos" ></button>
+
+    <div id="win" class="cover check">
+      <p>Good job!</p> 
+      <button class="actionbutton">➜</button>
+    </div>
+
+    <div id="error" class="cover">
+      <p>You painted outside the letter! You're drunk!</p> 
+      <button class="actionbutton">➜</button>
+    </div>
+
+    <div id="info" class="cover infopanel">
+      <button id="install" class="inlinebutton"></button>
+    </div>
+
+    <button id="reload"></button>
+  </div>
+
+  <!-- http://freesound.org/people/NenadSimic/sounds/150879/ -->
+  <audio src="win.ogg" id="winsound"></audio>
+  <!-- http://freesound.org/people/Autistic%20Lucario/sounds/142608/ -->
+  <audio src="error.ogg" id="errorsound"></audio>
+
+ 
 </ons-page>
